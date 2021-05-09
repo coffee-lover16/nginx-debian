@@ -3,9 +3,9 @@ FROM debian:9 AS build
 # install packages
 RUN apt update && apt install -y wget gcc libpcre3 libpcre3-dev zlib1g zlib1g-dev make
 # download nginx
-RUN wget http://nginx.org/download/nginx-1.0.5.tar.gz && tar xvfz nginx-1.0.5.tar.gz
+RUN wget http://nginx.org/download/nginx-1.7.10.tar.gz && tar xvfz nginx-1.7.10.tar.gz
 
-WORKDIR /nginx-1.0.5
+WORKDIR /nginx-1.7.10
 
 # install nginx with default configuration
 RUN ./configure && make && make install
@@ -20,5 +20,3 @@ COPY --from=build /usr/local/nginx/ .
 EXPOSE 80/tcp
 
 CMD ["./sbin/nginx", "-g", "daemon off;"]
-# CMD echo test...
-# RUN ./sbin/nginx
